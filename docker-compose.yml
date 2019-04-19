@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+
+  ghost:
+    image: ghost
+    restart: always
+    ports:
+      - 8045:2368
+    environment:
+      # see https://docs.ghost.org/docs/config#section-running-ghost-with-config-env-variables
+      database__client: mysql
+      database__connection__host: mysql
+      database__connection__user: root
+      database__connection__database: ghost
+      url: http://localhost:8045
+  mysql:
+    environment:
+      MYSQL_DATABASE: ghost
+      MYSQL_USER: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    image: mysql:5.7
+    ports:
+      - "3314:3306"
